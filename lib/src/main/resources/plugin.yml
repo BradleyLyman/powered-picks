@@ -1,0 +1,4 @@
+name: MyExamplePlugin
+version: 0.0.1
+main: my_first_plugin.MyExamplePlugin
+description: My first ever Papermc plugin.

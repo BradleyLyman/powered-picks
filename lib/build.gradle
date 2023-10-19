@@ -1,0 +1,68 @@
+plugins {
+  id 'java-library'
+
+  // https://plugins.gradle.org/plugin/io.papermc.paperweight.userdev
+  id("io.papermc.paperweight.userdev") version "1.5.7"
+
+  // https://github.com/jpenilla/run-task
+  id("xyz.jpenilla.run-paper") version "2.1.0"
+}
+
+apply plugin: PaperNMSUnitTestSupport
+
+def MINECRAFT_VERSION = "1.20.1"
+
+repositories {
+  mavenCentral()
+  maven {
+    url "https://repo.papermc.io/repository/maven-public/"
+  }
+}
+
+dependencies {
+  paperweight.paperDevBundle("$MINECRAFT_VERSION-R0.1-SNAPSHOT")
+
+  testImplementation('com.github.seeseemelk:MockBukkit-v1.20:3.31.0')
+  testImplementation('org.junit.jupiter:junit-jupiter:5.9.3')
+  testImplementation 'org.assertj:assertj-core:3.24.2'
+
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
+}
+
+tasks.named('runServer') {
+  minecraftVersion(MINECRAFT_VERSION)
+}
+
+tasks.named('test') {
+dependsOn reobfJar
+  useJUnitPlatform()
+
+  testLogging {
+    exceptionFormat = "full"
+    showStackTraces = true
+  }
+}
+
+tasks.register('bundleResourcePack', Zip) {
+  dependsOn "processResources"
+
+  archiveFileName = "resource-pack.zip"
+  destinationDirectory = layout.buildDirectory.dir('dist')
+
+  from(layout.projectDirectory.dir("resource_pack")) {
+      include "assets/**"
+      include "pack.mcmeta"
+  }
+}
+
+tasks.named('assemble') {
+  dependsOn bundleResourcePack
+  dependsOn reobfJar
+}
+
