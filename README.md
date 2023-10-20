@@ -1,6 +1,6 @@
-# My First Plugin
+# Powered Picks
 
-An example plugin for a PaperMC Minecraft server.
+A PaperMC Plugin which adds powered pickaxes into the game.
 
 ## Gradle Tasks
 

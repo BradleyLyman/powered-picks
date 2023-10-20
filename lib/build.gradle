@@ -24,7 +24,7 @@ dependencies {
 
   testImplementation('com.github.seeseemelk:MockBukkit-v1.20:3.31.0')
   testImplementation('org.junit.jupiter:junit-jupiter:5.9.3')
-  testImplementation 'org.assertj:assertj-core:3.24.2'
+  testImplementation "com.google.truth:truth:1.1.4"
 
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

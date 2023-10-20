@@ -1,4 +1,5 @@
-name: MyExamplePlugin
+name: PoweredPicks
 version: 0.0.1
-main: my_first_plugin.MyExamplePlugin
-description: My first ever Papermc plugin.
+main: com.bradleylyman.poweredpicks.Plugin
+description: PoweredPickaxes for PaperMC
+api-version:  '1.20'
